@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../lib');
+const {NotImplementedError} = require('../lib');
 
 const MODERN_ACTIVITY = 15;
 const HALF_LIFE_PERIOD = 5730;
@@ -17,9 +17,20 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function dateSample(sampleActivity) {
+  if (typeof sampleActivity !== 'string') {
+    return false;
+  }
+  const sampleActivityNum = Number(sampleActivity)
+  if (
+    isNaN(sampleActivityNum) ||
+    sampleActivityNum <= 0 ||
+    sampleActivityNum > MODERN_ACTIVITY
+  ) {
+    return false;
+  }
+  const k = 0.693 / HALF_LIFE_PERIOD;
+  return Math.ceil(Math.log(MODERN_ACTIVITY / sampleActivityNum) / k);
 }
 
 module.exports = {
